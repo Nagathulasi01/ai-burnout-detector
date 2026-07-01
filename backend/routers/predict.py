@@ -4,7 +4,7 @@ import joblib
 import numpy as np
 import os
 
-from backend.services.reason_engine import get_insights
+from services.reason_engine import get_insights
 
 router = APIRouter()
 

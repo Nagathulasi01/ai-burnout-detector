@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.routers import predict
-from backend.chatbot.chatbot_service import router as chatbot_router
+from routers import predict
+from chatbot.chatbot_service import router as chatbot_router
 
 app = FastAPI(title="Burnout AI Backend")
 
