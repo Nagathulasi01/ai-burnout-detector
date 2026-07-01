@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BurnoutAI - Offline</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+      color: #f1f5f9;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+    
+    .icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #e0f2fe;
+    }
+    
+    .subtitle {
+      font-size: 16px;
+      color: #cbd5e1;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .info-box {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+    
+    .info-box h2 {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .info-box p {
+      font-size: 14px;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+    
+    .info-box ul {
+      list-style: none;
+      margin-top: 10px;
+    }
+    
+    .info-box li {
+      font-size: 14px;
+      color: #cbd5e1;
+      padding: 5px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    
+    .info-box li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #10b981;
+    }
+    
+    .button {
+      display: inline-block;
+      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+    }
+    
+    .button:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">📡</div>
+    <h1>You're Offline</h1>
+    <p class="subtitle">
+      BurnoutAI is currently offline. Your app will sync when connection is restored.
+    </p>
+    
+    <div class="info-box">
+      <h2>What You Can Do</h2>
+      <ul>
+        <li>Check your internet connection</li>
+        <li>Review your saved assessment data</li>
+        <li>Read cached insights from previous sessions</li>
+      </ul>
+    </div>
+    
+    <div class="info-box">
+      <h2>Your Data is Safe</h2>
+      <p>
+        All your wellness data is securely stored on your device. When you're back online, 
+        everything will be synced automatically.
+      </p>
+    </div>
+    
+    <button class="button" onclick="window.location.href='/'">
+      Try Again
+    </button>
+  </div>
+  
+  <script>
+    // Check connection status periodically
+    window.addEventListener('online', () => {
+      console.log('Connection restored');
+      // Try to reload after a short delay
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

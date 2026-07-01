@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# BurnoutAI PWA
+Sitemap: /sitemap.xml
+
+# Disallow crawling of private routes (if any)
+Disallow: /admin/
+
+# Allow crawling of public routes
+Allow: /
+Allow: /home
+Allow: /assessment
+Allow: /dashboard
+Allow: /reminders
+
+# Crawl delay (ms)
+Crawl-delay: 10

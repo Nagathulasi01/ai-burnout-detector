@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    
+    <!-- Viewport & Device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0" />
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="BurnoutAI" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="An AI-powered wellness platform for burnout assessment, recovery tracking, and personalized wellness guidance." />
+    <meta name="keywords" content="wellness, burnout, AI, mental health, stress management" />
+    <meta name="author" content="BurnoutAI Team" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="BurnoutAI" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <meta name="msapplication-TileColor" content="#3b82f6" />
+    <meta name="msapplication-TileImage" content="/icons/icon-192.png" />
+    
+    <!-- Safe Area -->
+    <meta name="viewport-fit" content="cover" />
+    <meta name="safe-area-inset-left" content="constant(safe-area-inset-left)" />
+    <meta name="safe-area-inset-right" content="constant(safe-area-inset-right)" />
+    <meta name="safe-area-inset-top" content="constant(safe-area-inset-top)" />
+    <meta name="safe-area-inset-bottom" content="constant(safe-area-inset-bottom)" />
+    
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:title" content="BurnoutAI - AI Wellness Platform" />
+    <meta property="og:description" content="An AI-powered wellness platform for burnout assessment, recovery tracking, and personalized wellness guidance." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://burnoutai.app" />
+    <meta property="og:image" content="/icons/icon-512.png" />
+    
+    <title>BurnoutAI - AI Wellness Platform</title>
+  </head>
+  <body class="antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+            console.log('Service Worker registered:', registration);
+            
+            // Check for updates periodically
+            setInterval(() => {
+              registration.update();
+            }, 60000); // Check every minute
+            
+            // Listen for updates
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  // New service worker available, notify user
+                  console.log('New app update available');
+                  if (window.__onServiceWorkerUpdate) {
+                    window.__onServiceWorkerUpdate();
+                  }
+                }
+              });
+            });
+          }).catch((error) => {
+            console.error('Service Worker registration failed:', error);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
