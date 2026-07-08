@@ -30,22 +30,20 @@ def handle_message(req: ChatRequest):
     if not req.session_id or not req.message:
         raise HTTPException(status_code=400, detail="session_id and message are required")
 
-    # 1. detect intent
-    intent = detect_intent(req.message)
+    try:
+        intent = detect_intent(req.message)
+        memory.add_user_message(req.session_id, req.message)
+        reply = generate_response(req.session_id, req.message, intent, memory)
 
-    # 2. store message in memory (affects subsequent responses)
-    memory.add_user_message(req.session_id, req.message)
-
-    # 3. generate response (uses updated memory)
-    reply = generate_response(req.session_id, req.message, intent, memory)
-
-    return ChatResponse(
-        session_id=req.session_id,
-        intent=intent,
-        reply=reply,
-        recent_messages=memory.get_recent_messages(req.session_id),
-        detected_concerns=memory.get_concerns(req.session_id),
-    )
+        return ChatResponse(
+            session_id=req.session_id,
+            intent=intent,
+            reply=reply,
+            recent_messages=memory.get_recent_messages(req.session_id),
+            detected_concerns=memory.get_concerns(req.session_id),
+        )
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Chat response failed: {str(exc)}")
 
 
 @router.get("/memory/{session_id}")
